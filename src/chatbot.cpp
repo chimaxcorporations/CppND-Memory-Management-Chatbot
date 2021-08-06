@@ -44,7 +44,57 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+ChatBot::ChatBot(const ChatBot &other)//copy constructor
+{
+   
+    // data handles (not owned)
+    _chatLogic = other._chatLogic; 
+    _rootNode = other._rootNode;
+    _image = new wxBitmap(*other._image); // avatar image
+    std::cout<<"copy"<<&other<<"to: "<<this<<"\n";
+}
+ChatBot &ChatBot::operator=(const ChatBot &other)//assignment
+{
+    if(this==&other)
+    {
+        return *this;
+    }
+    delete _image;
 
+    _chatLogic = other._chatLogic;
+    _rootNode = other._rootNode;
+    _image = new wxBitmap(*other._image);
+    std::cout<<"assigned: " <<&other<< "to this :"<<this<<"\n";
+    return *this;
+}
+
+ChatBot::ChatBot(ChatBot &&other)//move semantic
+{
+ _chatLogic = other._chatLogic;
+ _rootNode = other._rootNode;
+ _image - other._image;
+ other._chatLogic = nullptr;
+ other._rootNode = nullptr;
+ other._image = nullptr;
+ std::cout<<"Moved: "<< &other << "to: " <<this<< "\n";
+}
+ChatBot &ChatBot::operator=(ChatBot &&other)// assignment operator
+{
+    if(this == &other)
+    {
+        return *this;
+    }
+    delete _image;
+    _chatLogic = other._chatLogic;
+    _rootNode = other._rootNode;
+    _image = other._image;
+    other._chatLogic = nullptr;
+    other._rootNode = nullptr;
+    other._image = nullptr;
+    std::cout<<"Move: "<< &other<< "to: "<< this << "\n";
+
+    return *this;
+}
 ////
 //// EOF STUDENT CODE
 
@@ -92,7 +142,7 @@ void ChatBot::SetCurrentNode(GraphNode *node)
     std::mt19937 generator(int(std::time(0)));
     std::uniform_int_distribution<int> dis(0, answers.size() - 1);
     std::string answer = answers.at(dis(generator));
-
+    _chatLogic->SetChatbotHandle(this);
     // send selected node answer to user
     _chatLogic->SendMessageToUser(answer);
 }

@@ -1,6 +1,6 @@
 #ifndef CHATBOT_H_
 #define CHATBOT_H_
-
+#include <wx/wx.h>
 #include <wx/bitmap.h>
 #include <string>
 
@@ -29,7 +29,13 @@ public:
 
     //// STUDENT CODE
     ////
-
+    //Rule of five
+    ChatBot(const ChatBot &other);//copy constructor
+    ChatBot &operator=(const ChatBot &other);//assignment
+    ChatBot(ChatBot &&other);//move semantic
+    ChatBot &operator=(ChatBot &&other);// assignment operator
+    
+    //
     ////
     //// EOF STUDENT CODE
 
@@ -37,7 +43,7 @@ public:
     void SetCurrentNode(GraphNode *node);
     void SetRootNode(GraphNode *rootNode) { _rootNode = rootNode; }
     void SetChatLogicHandle(ChatLogic *chatLogic) { _chatLogic = chatLogic; }
-    ChatLogic* GetChatLogicHandle() { return _chatLogic; }
+    // ChatLogic* GetChatLogicHandle() { return _chatLogic; }
     wxBitmap *GetImageHandle() { return _image; }
 
     // communication
