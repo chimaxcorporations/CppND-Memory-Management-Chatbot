@@ -17,6 +17,7 @@ private:
     ////
 
     // ChatLogic *_chatLogic;
+    // make _chatLogic exclusive class resource to ChatBotPanelDialog
     std::unique_ptr<ChatLogic> _chatLogic;
     ////
     //// EOF STUDENT CODE

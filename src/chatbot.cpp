@@ -2,7 +2,7 @@
 #include <random>
 #include <algorithm>
 #include <ctime>
-
+#include <memory>
 #include "chatlogic.h"
 #include "graphnode.h"
 #include "graphedge.h"
@@ -27,6 +27,7 @@ ChatBot::ChatBot(std::string filename)
     _rootNode = nullptr;
 
     // load image into heap memory
+    // std::unique_ptr<wxBitmap> _image(new wxBitmap(filename, wxBITMAP_TYPE_PNG));
     _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
 
@@ -47,17 +48,18 @@ ChatBot::~ChatBot()
 // copy constructor 
 ChatBot::ChatBot(const ChatBot &chatMem) 
 {
-    // std::cout << "COPYING content of instance " << &source << " to instance " << this << std::endl;
+    std::cout << "ChatBot copy constructor" << std::endl;
 
     _chatLogic = chatMem._chatLogic;
     _rootNode = chatMem._rootNode;
+    //  std::unique_ptr<wxBitmap> _image(new wxBitmap(*chatMem._image));
     _image = new wxBitmap(*chatMem._image);
 }
 
 // copy assignment constructor 
 ChatBot &ChatBot::operator=(const ChatBot &chatMem) 
 {
-    // std::cout << "ASSIGNING content of instance " << &source << " to instance " << this << std::endl;
+
     
     if (this == &chatMem) {
         return *this;
@@ -65,6 +67,7 @@ ChatBot &ChatBot::operator=(const ChatBot &chatMem)
     delete _image;
     _chatLogic = chatMem._chatLogic;
     _rootNode = chatMem._rootNode;
+    //  std::unique_ptr<wxBitmap> _image(new wxBitmap(*chatMem._image));
     _image = new wxBitmap(*chatMem._image);
 
     return *this;
