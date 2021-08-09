@@ -23,7 +23,7 @@ ChatLogic::ChatLogic()
 
     // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
     // _chatBot->SetChatLogicHandle(this);
-    std::cout<<"chatLogic started"<< "\n";
+    std::cout<<"chatLogic started"<< std::endl;
     ////
     //// EOF STUDENT CODE
 }
@@ -32,7 +32,7 @@ ChatLogic::~ChatLogic()
 {
     //// STUDENT CODE
     ////
-    std::cout<<"chatLogic Ended"<<"\n";
+    std::cout<<"chatLogic Ended"<<std::endl;
     // delete chatbot instance
     // delete _chatBot;
 

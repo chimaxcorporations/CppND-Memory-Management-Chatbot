@@ -41,62 +41,67 @@ ChatBot::~ChatBot()
         _image = NULL;
     }
 }
-
 //// STUDENT CODE
 ////
-ChatBot::ChatBot(const ChatBot &other)//copy constructor
+
+// copy constructor 
+ChatBot::ChatBot(const ChatBot &chatMem) 
 {
-   
-    // data handles (not owned)
-    _chatLogic = other._chatLogic; 
-    _rootNode = other._rootNode;
-    _image = new wxBitmap(*other._image); // avatar image
-    std::cout<<"copy"<<&other<<"to: "<<this<<"\n";
+    // std::cout << "COPYING content of instance " << &source << " to instance " << this << std::endl;
+
+    _chatLogic = chatMem._chatLogic;
+    _rootNode = chatMem._rootNode;
+    _image = new wxBitmap(*chatMem._image);
 }
-ChatBot &ChatBot::operator=(const ChatBot &other)//assignment
+
+// copy assignment constructor 
+ChatBot &ChatBot::operator=(const ChatBot &chatMem) 
 {
-    if(this==&other)
-    {
+    // std::cout << "ASSIGNING content of instance " << &source << " to instance " << this << std::endl;
+    
+    if (this == &chatMem) {
         return *this;
     }
     delete _image;
+    _chatLogic = chatMem._chatLogic;
+    _rootNode = chatMem._rootNode;
+    _image = new wxBitmap(*chatMem._image);
 
-    _chatLogic = other._chatLogic;
-    _rootNode = other._rootNode;
-    _image = new wxBitmap(*other._image);
-    std::cout<<"assigned: " <<&other<< "to this :"<<this<<"\n";
     return *this;
 }
 
-ChatBot::ChatBot(ChatBot &&other)//move semantic
+// move constructor 
+ChatBot::ChatBot(ChatBot &&chatMem) 
 {
- _chatLogic = other._chatLogic;
- _rootNode = other._rootNode;
- _image - other._image;
- other._chatLogic = nullptr;
- other._rootNode = nullptr;
- other._image = nullptr;
- std::cout<<"Moved: "<< &other << "to: " <<this<< "\n";
+    // std::cout << "MOVING (constructor) instance " << &source << " to instance " << this << std::endl;
+    _chatLogic = chatMem._chatLogic;
+    _rootNode = chatMem._rootNode;
+    _image = chatMem._image;
+    chatMem._chatLogic = nullptr;
+    chatMem._rootNode = nullptr;
+    chatMem._image = nullptr;
 }
-ChatBot &ChatBot::operator=(ChatBot &&other)// assignment operator
+
+// move assignment operator
+ChatBot &ChatBot::operator=(ChatBot &&chatMem) 
 {
-    if(this == &other)
-    {
+    // std::cout << "MOVING (assign) instance " << &source << " to instance " << this << std::endl;
+    if (this == &chatMem) {
         return *this;
     }
     delete _image;
-    _chatLogic = other._chatLogic;
-    _rootNode = other._rootNode;
-    _image = other._image;
-    other._chatLogic = nullptr;
-    other._rootNode = nullptr;
-    other._image = nullptr;
-    std::cout<<"Move: "<< &other<< "to: "<< this << "\n";
+    _chatLogic = chatMem._chatLogic;
+    _rootNode = chatMem._rootNode;
+    _image = chatMem._image;
+    chatMem._chatLogic = nullptr;
+    chatMem._rootNode = nullptr;
+    chatMem._image = nullptr;
 
     return *this;
 }
 ////
 //// EOF STUDENT CODE
+
 
 void ChatBot::ReceiveMessageFromUser(std::string message)
 {

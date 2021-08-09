@@ -1,6 +1,6 @@
 #ifndef CHATBOT_H_
 #define CHATBOT_H_
-#include <wx/wx.h>
+// #include <wx/wx.h>
 #include <wx/bitmap.h>
 #include <string>
 
@@ -27,15 +27,12 @@ public:
     ChatBot(std::string filename); // constructor WITH memory allocation
     ~ChatBot();
 
-    //// STUDENT CODE
+     //// STUDENT CODE
     ////
-    //Rule of five
-    ChatBot(const ChatBot &other);//copy constructor
-    ChatBot &operator=(const ChatBot &other);//assignment
-    ChatBot(ChatBot &&other);//move semantic
-    ChatBot &operator=(ChatBot &&other);// assignment operator
-    
-    //
+    ChatBot(const ChatBot &chatMem); // copy constructor
+    ChatBot &operator=(const ChatBot &chatMem); //copy assignment constructor 
+    ChatBot(ChatBot &&chatMem); // move constructor 
+    ChatBot &operator=(ChatBot &&chatMem); // move assignment constructor 
     ////
     //// EOF STUDENT CODE
 
